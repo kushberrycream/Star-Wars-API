@@ -1,7 +1,7 @@
 const app = document.getElementById("root");
 const button = document.getElementsByClassName("btn");
 const nav = document.createElement("div");
-nav.setAttribute("class", "container api-selectors");
+nav.setAttribute("class", "container api-selectors appear");
 
 const container = document.createElement("div");
 container.setAttribute("class", "container-fluid cards");
@@ -12,7 +12,7 @@ row.setAttribute("id", "data");
 
 const logo = document.createElement("img");
 logo.src = "assets/starwars.png";
-logo.setAttribute("class", "img-fluid");
+logo.setAttribute("class", "img-fluid single-featured-image-header");
 logo.setAttribute("alt", "StarWars Logo");
 
 const apiUrl = `https://swapi.co/api/`;
@@ -68,40 +68,13 @@ let btnValue = {};
 let nextPage = {};
 let prevPage = {};
 
-function generatePaginationButtons(next, prev) {
-  next = next.slice(21, 35);
-  nextPage = next;
-  
-  if (!prev) {
-      
-  } else {
-      prev = prev.slice(21,35);
-      prevPage = prev
-  }
-  
-
-  if (next && prev) {
-    return `<div id="prev"><button onclick="doSomething(value)" value="${prevPage}">Previous</button></div>
-               <div id="next"><button onclick="doSomething(value)" value="${next}"><i class="fas fa-jedi rotate-right hvr-pulse-grow"></button></div>`;
-  } else if (next && !prev) {
-    return `<div id="next"><button onclick="doSomething(value)" value="${nextPage}"><i class="fas fa-jedi rotate-right hvr-pulse-grow"></i></i></button></div>`;
-  } else if (!next && prev) {
-    return `<div id="prev"><button onclick="doSomething(value)" value="${prev}>Previous</button></div>`;
-  }
-}
-
 function getInfo() {
   axios.get(apiUrl + btnValue).then(response => {
     this.data = response.data;
     let pagination = "";
-    let nextPrev = document.createElement("div");
     if (data.next || data.previous) {
       pagination = generatePaginationButtons(data.next, data.previous);
-      row.appendChild(nextPrev);
-      nextPrev.setAttribute("class", "nextprev");
-      nextPrev.setAttribute("id", "nextprev");
-      nextPrev.innerHTML = `${pagination}`;
-      
+      row.innerHTML = `${pagination}`;
     }
     data.results.forEach(item => {
       let card = document.createElement("div");
@@ -127,7 +100,7 @@ function getInfo() {
 
 function doSomething(value) {
   btnValue = value;
-  
+
   clearData();
   getInfo();
 }
@@ -138,4 +111,19 @@ function getImageDirectoryByFullURL(nextUrl) {
 function clearData() {
   let clear = document.getElementById("data");
   clear.innerHTML = "";
+}
+
+function generatePaginationButtons(next, prev) {
+  if (next && !prev) {
+    next = next.slice(21, 38);
+    return `<div id="next" class="rotate-right"><button onclick="doSomething(value)" value="${next}"><i class="fas fa-jedi hvr-pulse-grow"></i></button></div>`;
+  } else if (next && prev) {
+    next = next.slice(21, 38);
+    prev = prev.slice(21, 38);
+    return `<div id="prev" class="rotate-left"><button onclick="doSomething(value)" value="${prev}"><i class="fas fa-jedi hvr-pulse-grow"></i></button></div>
+               <div id="next" class="rotate-right"><button onclick="doSomething(value)" value="${next}"><i class="fas fa-jedi hvr-pulse-grow"></i></button></div>`;
+  } else if (!next && prev) {
+    prev = prev.slice(21, 38);
+    return `<div id="next" class="hide"></div><div id="prev" class="rotate-left"><button onclick="doSomething(value)" value="${prev}"><i class="fas fa-jedi hvr-pulse-grow"></i></button></div>`;
+  }
 }

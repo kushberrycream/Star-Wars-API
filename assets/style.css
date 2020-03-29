@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Titillium+Web:300,300i,400,400i,600,600i,700,700,800i&display=swap");
 
+@font-face {
+    font-family: "jedi";
+    src: url("../fonts/starjedi.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "jedi-outline";
+    src: url("../fonts/starjhol.ttf") format('truetype');
+}
 * {
   box-sizing: border-box;
 }
@@ -22,55 +31,66 @@ body {
   background: transparent;
 }
 
-@keyframes zoominoutsinglefeatured {
-  0% {
-    transform: scale(6, 6);
+@keyframes zoominsinglefeatured {
+  from {
+    transform: scale(8);
   }
 
-  100% {
-    transform: scale(1, 1);
+  to {
+    transform: scale(1);
   }
 }
 
 .single-featured-image-header {
-  animation: zoominoutsinglefeatured 15s forwards;
+  animation: zoominsinglefeatured 10s forwards;
 }
 
-@keyframes fadeIn {
-    0% { opacity: -0.5; }
-    100% { opacity: 1; }
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-.appear {
-    display: block;
 
-    animation: fadeIn 20s;
-    
-
-}
 #root {
   text-align: center;
 }
 
 img {
+  position: relative;
   max-height: 250px;
   max-width: 100%;
   height: auto;
-  margin: 40px 0 0;
+  margin: 40px 0;
   padding: 0 20px 0;
+  z-index: 2000;
+  box-sizing: content-box;
+  overflow: hidden;
+}
+.refresh-btn {
+  position: absolute;
+  top: 25px;
+  right: 50px;
+  font-size: 30px;
+  color: #ffc500;
+  cursor: pointer;
+  
 }
 
-.btn {
+.cardnav {
+  background: #e7fcff;
+  box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.2s linear;
+  padding: 0;
   margin: 10px;
-}
-.btn-warning:hover,
-.btn-warning:focus,
-.btn-warning:not(:disabled):not(.disabled):active,
-.show > .btn-warning.dropdown-toggle {
-  color: #ffc500;
-  background-color: transparent;
-  border-color: #c69500;
-  border-width: 3px;
+  border: 0;
+  height: 250px;
+  animation: fadein 18s;
 }
 
 .card {
@@ -82,6 +102,69 @@ img {
   transition: all 0.2s linear;
   padding: 0;
   border: 0;
+}
+
+.btn-title {
+  position: absolute;
+  right: 16px;
+  bottom: 45px;
+  left: 16px;
+  text-align: left;
+  background-color: rgba(0,0,0,.4);
+  padding: 5px 0 5px 25px;
+  margin: -16px;
+  width: 100%;
+  color: #78bc65;
+  font-family: "jedi";
+  font-size:30px;
+}
+
+.character {
+  width: 100%;
+  background: url("https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/Obiwan-Soresu.png")
+    no-repeat center;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.planets {
+  width: 100%;
+  background: url("https://starwarsblog.starwars.com/wp-content/uploads/2018/10/mustafar-tall.jpg")
+    no-repeat center;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.species {
+  width: 100%;
+  background: url("https://lumiere-a.akamaihd.net/v1/images/image_991736d0.jpeg?height=877&width=1560&x=0&y=0")
+    no-repeat top;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.vehicles {
+  width: 100%;
+  background: url("https://lumiere-a.akamaihd.net/v1/images/AT-AT_89d0105f.jpeg?region=138%2C19%2C1392%2C697")
+    no-repeat center;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.starships {
+  width: 100%;
+  background: url("https://www.elsetge.cat/myimg/f/183-1830740_x-wing-millennium-falcon-wallpaper-and-background-star.jpg")
+    no-repeat center;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.films {
+  width: 100%;
+  background: url("https://www.denofgeek.com/wp-content/uploads/2017/03/star_wars_main.jpg?resize=768%2C432")
+    no-repeat center;
+  background-size: cover;
+  cursor: pointer;
 }
 
 h1 {
@@ -132,5 +215,11 @@ p {
   to {
     -webkit-transform: scale(1.2);
     transform: scale(1.2);
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .cardnav {
+    margin: 0;
   }
 }
